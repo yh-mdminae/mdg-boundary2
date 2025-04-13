@@ -36,6 +36,13 @@
           console.log("Loaded features:", features);
           console.log("Example feature properties:", features[0].properties);
 
+          // Log all districts that start with "Toamasina"
+          features.forEach(f => {
+            if (f.properties.shapeName && f.properties.shapeName.startsWith("Toamasina")) {
+              console.log("MATCHING NAME:", f.properties.shapeName);
+            }
+          });
+
           const projection = d3.geoMercator().fitSize([window.innerWidth, window.innerHeight], {
             type: "FeatureCollection",
             features: features
@@ -45,9 +52,9 @@
 
           // 🔁 Trigger draw manually for testing (disable this block when using Looker Studio)
           drawMap({
-            "Maintirano": 10,
-            "Morondava": 10,
-            "Toamasina I": 10
+            "Maintirano": 60,
+            "Morondava": 45,
+            "Toamasina I": 80
           });
 
           // 🔁 Enable this block only when running inside Looker Studio environment

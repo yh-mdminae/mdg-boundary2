@@ -49,7 +49,12 @@
           svg.selectAll("path")
             .data(features)
             .enter().append("path")
-            .attr("d", path)
+            .attr("d", d => {
+  const p = path(d);
+  console.log("Generated path:", p);
+  return p;
+})
+.attr("d", path)
             .attr("fill", d => {
               const name = d.properties.shapeName; // Updated to match new dataset field
               console.log("Drawing feature for:", name);

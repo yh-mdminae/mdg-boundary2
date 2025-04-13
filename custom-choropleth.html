@@ -25,7 +25,7 @@
       fetch("https://yh-mdminae.github.io/mdg-boundary2/madagascar_districts.topojson")
         .then(response => response.json())
         .then(topo => {
-          const features = topojson.feature(topo, topo.objects[Object.keys(topo.objects)[0]]).features;
+          const features = topojson.feature(topo, topo.objects["gadm41_MDG_3"]).features;
 
           // Simulated Looker Studio values (for testing):
           // Format: data["DistrictName"] = some value

@@ -21,14 +21,14 @@
       const color = d3.scaleSequential(d3.interpolateOranges);
 
       let data = {
-        "Antananarivo-Atsimondrano": 80,
-        "Antsirabe II": 45,
-        "Toamasina I": 60
+        "1er Arrondissement": 80,
+        "2e Arrondissement": 45,
+        "Maintirano": 60
       };
 
       console.log("Starting fetch...");
 
-      fetch("https://yh-mdminae.github.io/mdg-boundary2/madagascar_districts.topojson")
+      fetch("https://yh-mdminae.github.io/mdg-boundary2/geoBoundaries-MDG-ADM2.topojson")
         .then(response => {
           console.log("Fetch successful");
           return response.json();
@@ -37,7 +37,7 @@
           console.log("Received topo:", topo);
           console.log("Available TopoJSON object keys:", Object.keys(topo.objects));
 
-          const features = topojson.feature(topo, topo.objects["gadm41_MDG_3"]).features;
+          const features = topojson.feature(topo, topo.objects["geoBoundaries-MDG-ADM2"]).features;
           console.log("Loaded features:", features);
           console.log("Example feature properties:", features[0].properties);
 
@@ -49,7 +49,7 @@
             .enter().append("path")
             .attr("d", path)
             .attr("fill", d => {
-              const name = d.properties.NAME_2; // Switched to district level
+              const name = d.properties.shapeName; // Updated to match new dataset field
               console.log("Drawing feature for:", name);
               return data[name] != null ? color(data[name]) : "#ccc";
             })

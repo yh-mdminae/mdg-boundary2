@@ -39,7 +39,7 @@
 
           console.log("Object keys inside TopoJSON:", Object.keys(topo.objects));
 
-	  const features = topojson.feature(topo, topo.objects["geoBoundaries-MDG-ADM2"]).features;
+	  const features = topojson.feature(topo, topo.objects["MDGADM2gbOpen"]).features;
           console.log("Loaded features:", features);
           console.log("Example feature properties:", features[0].properties);
 

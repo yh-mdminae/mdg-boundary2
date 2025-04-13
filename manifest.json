@@ -1,11 +1,11 @@
 {
   "dataStudio": {
     "name": "Madagascar District Choropleth",
-    "company": "Your Name or Organization",
+    "company": "YH",
     "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg",
     "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg",
     "supportUrl": "https://github.com/yh-mdminae/mdg-boundary2",
-    "description": "Custom TopoJSON choropleth map of Madagascar districts using Looker Studio Community Visualization.",
+    "description": "A TopoJSON-based choropleth for Madagascar ADM2 district visualization in Looker Studio.",
     "devMode": true
   },
   "components": {

@@ -19,11 +19,20 @@
       const svg = d3.select("svg");
       const color = d3.scaleSequential(d3.interpolateOranges);
 
-      let data = {
-        "1er Arrondissement": 80,
-        "2e Arrondissement": 45,
-        "Maintirano": 60
-      };
+google.visualization.events.addListener(window, 'onData', (dsResponse) => {
+  const rows = dsResponse.tables.DEFAULT.rows;
+
+  // Expecting: first column = name, second column = value
+  const data = {};
+  rows.forEach(row => {
+    const name = row.c[0].v;
+    const value = row.c[1].v;
+    data[name] = value;
+  });
+
+  drawMap(data);  // call function to draw the map using Looker Studio data
+});
+
 
       console.log("Starting fetch...");
 

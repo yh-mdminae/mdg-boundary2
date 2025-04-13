@@ -27,6 +27,7 @@
         .then(response => response.json())
         .then(topo => {
           const features = topojson.feature(topo, topo.objects["gadm41_MDG_3"]).features;
+          console.log("Loaded features:", features);
 
           // Simulated Looker Studio values (for testing):
           // Format: data["DistrictName"] = some value

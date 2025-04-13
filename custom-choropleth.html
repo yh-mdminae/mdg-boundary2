@@ -18,21 +18,8 @@
 
       const svg = d3.select("svg");
       const color = d3.scaleSequential(d3.interpolateOranges);
-
-google.visualization.events.addListener(window, 'onData', (dsResponse) => {
-  const rows = dsResponse.tables.DEFAULT.rows;
-
-  // Expecting: first column = name, second column = value
-  const data = {};
-  rows.forEach(row => {
-    const name = row.c[0].v;
-    const value = row.c[1].v;
-    data[name] = value;
-  });
-
-  drawMap(data);  // call function to draw the map using Looker Studio data
-});
-
+      let features = [];
+      let path;
 
       console.log("Starting fetch...");
 
@@ -45,7 +32,7 @@ google.visualization.events.addListener(window, 'onData', (dsResponse) => {
           console.log("Received topo:", topo);
           console.log("Available TopoJSON object keys:", Object.keys(topo.objects));
 
-          const features = topojson.feature(topo, topo.objects["MDGADM2gbOpen"]).features;
+          features = topojson.feature(topo, topo.objects["MDGADM2gbOpen"]).features;
           console.log("Loaded features:", features);
           console.log("Example feature properties:", features[0].properties);
 
@@ -54,30 +41,49 @@ google.visualization.events.addListener(window, 'onData', (dsResponse) => {
             features: features
           });
 
-          const path = d3.geoPath().projection(projection);
+          path = d3.geoPath().projection(projection);
 
-          const values = Object.values(data);
-          color.domain([Math.min(...values), Math.max(...values)]);
+          // 🔁 Trigger draw manually for testing (disable this block when using Looker Studio)
+          drawMap({
+            "Maintirano": 60,
+            "Morondava": 45,
+            "Toamasina I": 80
+          });
 
-          svg.selectAll("path")
-            .data(features)
-            .enter().append("path")
-            .attr("d", d => {
-              const p = path(d);
-              console.log("Generated path:", p);
-              return p;
-            })
-            .attr("fill", d => {
-              const name = d.properties.shapeName; // Updated to match new dataset field
-              console.log("Drawing feature for:", name);
-              return data[name] != null ? color(data[name]) : "#ccc";
-            })
-            .attr("stroke", "#fff");
+          // 🔁 Uncomment this block only when inside Looker Studio
+          /*
+          google.visualization.events.addListener(window, 'onData', (dsResponse) => {
+            const rows = dsResponse.tables.DEFAULT.rows;
+            const data = {};
+            rows.forEach(row => {
+              const name = row.c[0].v;
+              const value = row.c[1].v;
+              data[name] = value;
+            });
+            drawMap(data);
+          });
+          */
         })
         .catch(err => {
           console.error("Fetch failed:", err);
         });
+
+      // 🔁 This function will be called by Looker Studio or test data
+      function drawMap(data) {
+        const values = Object.values(data);
+        color.domain([Math.min(...values), Math.max(...values)]);
+
+        svg.selectAll("path")
+          .data(features)
+          .enter().append("path")
+          .attr("d", d => path(d))
+          .attr("fill", d => {
+            const name = d.properties.shapeName;
+            console.log("Drawing feature for:", name);
+            return data[name] != null ? color(data[name]) : "#ccc";
+          })
+          .attr("stroke", "#fff");
+      }
     </script>
   </body>
 </html>
-

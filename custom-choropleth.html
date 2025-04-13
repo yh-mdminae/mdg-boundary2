@@ -55,7 +55,7 @@
         .enter().append("path")
         .attr("d", path)
         .attr("fill", d => {
-          const name = d.properties.NAME_3;
+          const name = d.properties.NAME_2;
           return data[name] != null ? color(data[name]) : "#ccc";
         })
         .attr("stroke", "#fff");

@@ -14,7 +14,7 @@
         "id": "madagascar_choropleth",
         "type": "community_visualization",
         "entryPoint": "custom-choropleth.html",
-        "style": "STYLE",
+        "style": "style.css",
         "data": {
           "dimensions": ["District"],
           "metrics": ["Value"]

@@ -36,6 +36,7 @@
 
       const features = topojson.feature(topo, topo.objects["gadm41_MDG_3"]).features;
       console.log("Loaded features:", features);
+      console.log("Example feature properties:", features[0].properties);
 
       data = {
 

@@ -50,19 +50,19 @@
             "Toamasina I": 80
           });
 
-          // 🔁 Uncomment this block only when inside Looker Studio
-          /*
-          google.visualization.events.addListener(window, 'onData', (dsResponse) => {
-            const rows = dsResponse.tables.DEFAULT.rows;
-            const data = {};
-            rows.forEach(row => {
-              const name = row.c[0].v;
-              const value = row.c[1].v;
-              data[name] = value;
-            });
-            drawMap(data);
-          });
-          */
+          // 🔁 Enable this block only when running inside Looker Studio environment
+          // if (typeof google !== 'undefined' && google.visualization) {
+          //   google.visualization.events.addListener(window, 'onData', (dsResponse) => {
+          //     const rows = dsResponse.tables.DEFAULT.rows;
+          //     const data = {};
+          //     rows.forEach(row => {
+          //       const name = row.c[0].v;
+          //       const value = row.c[1].v;
+          //       data[name] = value;
+          //     });
+          //     drawMap(data);
+          //   });
+          // }
         })
         .catch(err => {
           console.error("Fetch failed:", err);

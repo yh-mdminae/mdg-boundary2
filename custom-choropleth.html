@@ -14,7 +14,7 @@
   <body>
     <svg></svg>
     <script>
-<script>
+
   console.log("Script is running ✅");
 
   const svg = d3.select("svg");
@@ -55,7 +55,7 @@
         .enter().append("path")
         .attr("d", path)
         .attr("fill", d => {
-          const name = d.properties.NAME_2;
+          const name = d.properties.NAME_3;
           return data[name] != null ? color(data[name]) : "#ccc";
         })
         .attr("stroke", "#fff");

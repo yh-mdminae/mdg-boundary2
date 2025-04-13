@@ -14,44 +14,53 @@
   <body>
     <svg></svg>
     <script>
-      console.log("Script is running");
-      const svg = d3.select("svg");
-      const path = d3.geoPath();
-      const color = d3.scaleSequential(d3.interpolateOranges);
+<script>
+  console.log("Script is running ✅");
 
-      // This will be replaced by Looker Studio data
-      let data = {};
+  const svg = d3.select("svg");
+  const path = d3.geoPath();
+  const color = d3.scaleSequential(d3.interpolateOranges);
 
-      // Load TopoJSON from URL or embedded
-      fetch("https://yh-mdminae.github.io/mdg-boundary2/madagascar_districts.topojson")
-        .then(response => response.json())
-        .then(topo => {
-          const features = topojson.feature(topo, topo.objects["gadm41_MDG_3"]).features;
-          console.log("Loaded features:", features);
+  let data = {};
 
-          // Simulated Looker Studio values (for testing):
-          // Format: data["DistrictName"] = some value
-          data = {
-            "Antananarivo-Atsimondrano": 80,
-            "Antsirabe II": 45,
-            "Toamasina I": 60
-            // ...
-          };
+  // 🟡 Start of fetch block
+  console.log("Starting fetch...");
 
-          // Compute domain based on data
-          const values = Object.values(data);
-          color.domain([Math.min(...values), Math.max(...values)]);
+  fetch("https://yh-mdminae.github.io/mdg-boundary2/madagascar_districts.topojson")
+    .then(response => {
+      console.log("Fetch successful");
+      return response.json();
+    })
+    .then(topo => {
+      console.log("Received topo:", topo);
 
-          svg.selectAll("path")
-            .data(features)
-            .enter().append("path")
-            .attr("d", path)
-            .attr("fill", d => {
-              const name = d.properties.NAME_2;
-              return data[name] != null ? color(data[name]) : "#ccc";
-            })
-            .attr("stroke", "#fff");
-        });
+      const features = topojson.feature(topo, topo.objects["gadm41_MDG_3"]).features;
+      console.log("Loaded features:", features);
+
+      data = {
+        "Antananarivo-Atsimondrano": 80,
+        "Antsirabe II": 45,
+        "Toamasina I": 60
+      };
+
+      const values = Object.values(data);
+      color.domain([Math.min(...values), Math.max(...values)]);
+
+      svg.selectAll("path")
+        .data(features)
+        .enter().append("path")
+        .attr("d", path)
+        .attr("fill", d => {
+          const name = d.properties.NAME_2;
+          return data[name] != null ? color(data[name]) : "#ccc";
+        })
+        .attr("stroke", "#fff");
+    })
+    .catch(err => {
+      console.error("Fetch failed:", err);
+    });
+</script>
+
     </script>
   </body>
 </html>

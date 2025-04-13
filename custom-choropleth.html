@@ -22,7 +22,7 @@
       let data = {};
 
       // Load TopoJSON from URL or embedded
-      fetch("https://drive.google.com/uc?export=download&id=1XYdhCBDwBCfLAe-GR-h8SLTn9h_pd23a")
+      fetch("https://yh-mdminae.github.io/mdg-boundary2/madagascar_districts.topojson")
         .then(response => response.json())
         .then(topo => {
           const features = topojson.feature(topo, topo.objects[Object.keys(topo.objects)[0]]).features;

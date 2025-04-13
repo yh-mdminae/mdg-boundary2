@@ -1,0 +1,55 @@
+<!-- A minimal custom choropleth map for Looker Studio (Community Visualization) -->
+<!-- This will display your TopoJSON with color scaling -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/topojson.v2.min.js"></script>
+    <style>
+      body { margin: 0; }
+      svg { width: 100%; height: 100vh; }
+    </style>
+  </head>
+  <body>
+    <svg></svg>
+    <script>
+      const svg = d3.select("svg");
+      const path = d3.geoPath();
+      const color = d3.scaleSequential(d3.interpolateOranges);
+
+      // This will be replaced by Looker Studio data
+      let data = {};
+
+      // Load TopoJSON from URL or embedded
+      fetch("https://drive.google.com/uc?export=download&id=1XYdhCBDwBCfLAe-GR-h8SLTn9h_pd23a")
+        .then(response => response.json())
+        .then(topo => {
+          const features = topojson.feature(topo, topo.objects[Object.keys(topo.objects)[0]]).features;
+
+          // Simulated Looker Studio values (for testing):
+          // Format: data["DistrictName"] = some value
+          data = {
+            "Antananarivo-Atsimondrano": 80,
+            "Antsirabe II": 45,
+            "Toamasina I": 60
+            // ...
+          };
+
+          // Compute domain based on data
+          const values = Object.values(data);
+          color.domain([Math.min(...values), Math.max(...values)]);
+
+          svg.selectAll("path")
+            .data(features)
+            .enter().append("path")
+            .attr("d", path)
+            .attr("fill", d => {
+              const name = d.properties.NAME_2;
+              return data[name] != null ? color(data[name]) : "#ccc";
+            })
+            .attr("stroke", "#fff");
+        });
+    </script>
+  </body>
+</html>

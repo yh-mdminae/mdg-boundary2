@@ -37,7 +37,7 @@
           console.log("Received topo:", topo);
           console.log("Available TopoJSON object keys:", Object.keys(topo.objects));
 
-          const features = topojson.feature(topo, topo.objects["gadm41_MDG_2"]).features;
+          const features = topojson.feature(topo, topo.objects["gadm41_MDG_3"]).features;
           console.log("Loaded features:", features);
           console.log("Example feature properties:", features[0].properties);
 

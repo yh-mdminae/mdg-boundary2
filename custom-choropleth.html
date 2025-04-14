@@ -1,5 +1,3 @@
-<!-- A minimal custom choropleth map for Looker Studio (Community Visualization) -->
-<!-- This will display your TopoJSON with color scaling -->
 
 <!DOCTYPE html>
 <html>
@@ -14,34 +12,15 @@
   <body>
     <svg></svg>
     <script>
-      console.log("Script is running ✅");
-
       const svg = d3.select("svg");
       const color = d3.scaleSequential(d3.interpolateOranges);
       let features = [];
       let path;
 
-      console.log("Starting fetch...");
-
       fetch("https://yh-mdminae.github.io/mdg-boundary2/geoBoundaries-MDG-ADM2.topojson")
-        .then(response => {
-          console.log("Fetch successful");
-          return response.json();
-        })
+        .then(response => response.json())
         .then(topo => {
-          console.log("Received topo:", topo);
-          console.log("Available TopoJSON object keys:", Object.keys(topo.objects));
-
           features = topojson.feature(topo, topo.objects["MDGADM2gbOpen"]).features;
-          console.log("Loaded features:", features);
-          console.log("Example feature properties:", features[0].properties);
-
-          // Log all districts that start with "Toamasina"
-          features.forEach(f => {
-            if (f.properties.shapeName && f.properties.shapeName.startsWith("Toamasina")) {
-              console.log("MATCHING NAME:", f.properties.shapeName);
-            }
-          });
 
           const projection = d3.geoMercator().fitSize([window.innerWidth, window.innerHeight], {
             type: "FeatureCollection",
@@ -50,32 +29,13 @@
 
           path = d3.geoPath().projection(projection);
 
-          // 🔁 Trigger draw manually for testing (disable this block when using Looker Studio)
           drawMap({
-            "Maintirano": 10,
-            "Morondava": 10,
-            "Toamasina I": 900
+            "Maintirano": 60,
+            "Morondava": 45,
+            "Toamasina I": 80
           });
-
-          // 🔁 Enable this block only when running inside Looker Studio environment
-          // if (typeof google !== 'undefined' && google.visualization) {
-          //   google.visualization.events.addListener(window, 'onData', (dsResponse) => {
-          //     const rows = dsResponse.tables.DEFAULT.rows;
-          //     const data = {};
-          //     rows.forEach(row => {
-          //       const name = row.c[0].v;
-          //       const value = row.c[1].v;
-          //       data[name] = value;
-          //     });
-          //     drawMap(data);
-          //   });
-          // }
-        })
-        .catch(err => {
-          console.error("Fetch failed:", err);
         });
 
-      // 🔁 This function will be called by Looker Studio or test data
       function drawMap(data) {
         const values = Object.values(data);
         color.domain([Math.min(...values), Math.max(...values)]);
@@ -86,7 +46,6 @@
           .attr("d", d => path(d))
           .attr("fill", d => {
             const name = d.properties.shapeName;
-            console.log("Drawing feature for:", name);
             return data[name] != null ? color(data[name]) : "#ccc";
           })
           .attr("stroke", "#fff");

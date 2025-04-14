@@ -15,8 +15,12 @@
         "type": "community_visualization",
         "entryPoint": "https://yh-mdminae.github.io/mdg-boundary2/custom-choropleth.html",
         "data": {
-          "dimensions": ["District"],
-          "metrics": ["Value"]
+          "dimensions": [
+            "District"
+          ],
+          "metrics": [
+            "Value"
+          ]
         }
       }
     ]

@@ -13,7 +13,7 @@
       {
         "id": "madagascar_choropleth",
         "type": "community_visualization",
-        "entryPoint": "custom-choropleth.html",
+        "entryPoint": "custom-choropleth.js",
         "data": {
           "dimensions": [
             "District"

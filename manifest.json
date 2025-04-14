@@ -13,7 +13,7 @@
       {
         "id": "madagascar_choropleth",
         "type": "community_visualization",
-        "entryPoint": "https://yh-mdminae.github.io/mdg-boundary2/custom-choropleth.html",
+        "entryPoint": "custom-choropleth.html",
         "data": {
           "dimensions": [
             "District"

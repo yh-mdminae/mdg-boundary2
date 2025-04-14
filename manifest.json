@@ -5,7 +5,7 @@
     "iconUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg",
     "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Madagascar.svg",
     "supportUrl": "https://github.com/yh-mdminae/mdg-boundary2",
-    "description": "A TopoJSON-based choropleth for Madagascar ADM2 district visualization in Looker Studio.",
+    "description": "Custom TopoJSON choropleth map of Madagascar districts using Looker Studio Community Visualization.",
     "devMode": true
   },
   "components": {
@@ -13,8 +13,7 @@
       {
         "id": "madagascar_choropleth",
         "type": "community_visualization",
-        "entryPoint": "custom-choropleth.html",
-        "style": "style.css",
+        "entryPoint": "https://yh-mdminae.github.io/mdg-boundary2/custom-choropleth.html",
         "data": {
           "dimensions": ["District"],
           "metrics": ["Value"]

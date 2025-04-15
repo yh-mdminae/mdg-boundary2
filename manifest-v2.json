@@ -15,28 +15,9 @@
         "type": "community_visualization",
         "entryPoint": "choropleth-v2.js",
         "data": {
-          "dimensions": [
-            "District"
-          ],
-          "metrics": [
-            "Value"
-          ]
-        },
-        "config": [
-          {
-            "name": "districtField",
-            "label": "District Field",
-            "type": "DIMENSION",
-            "description": "Select the dimension that contains the district names."
-          },
-          {
-            "name": "valueField",
-            "label": "Value Field",
-            "type": "METRIC",
-            "description": "Select the metric to display on the map."
-          }
-          // Add more configuration options as needed
-        ]
+          "dimensions": ["District"],
+          "metrics": ["Value"]
+        }
       }
     ]
   }
